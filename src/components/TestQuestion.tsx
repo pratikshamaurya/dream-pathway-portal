@@ -8,68 +8,48 @@ export interface Question {
 }
 
 interface TestQuestionProps {
-  question: Question;
-  currentQuestionIndex: number;
-  totalQuestions: number;
-  onAnswerSelected: (questionId: number, answer: string) => void;
-  selectedAnswer: string | null;
-  isVisible: boolean;
+  question: string;
+  questionId: number;
+  onAnswer: (questionId: number, value: number) => void;
+  selectedValue?: number;
 }
 
 const TestQuestion = ({
   question,
-  currentQuestionIndex,
-  totalQuestions,
-  onAnswerSelected,
-  selectedAnswer,
-  isVisible
+  questionId,
+  onAnswer,
+  selectedValue
 }: TestQuestionProps) => {
-  const handleOptionSelect = (option: string) => {
-    onAnswerSelected(question.id, option);
+  const options = [
+    "Strongly Disagree",
+    "Disagree",
+    "Neutral",
+    "Agree",
+    "Strongly Agree"
+  ];
+
+  const handleOptionSelect = (value: number) => {
+    onAnswer(questionId, value);
   };
 
   return (
-    <div 
-      className={`w-full transition-all duration-500 ${
-        isVisible 
-          ? 'opacity-100 translate-y-0' 
-          : 'opacity-0 translate-y-10 pointer-events-none absolute'
-      }`}
-    >
-      {/* Progress indicator */}
-      <div className="mb-8">
-        <div className="flex justify-between items-center mb-2">
-          <span className="text-sm font-medium text-gray-500">
-            Question {currentQuestionIndex + 1} of {totalQuestions}
-          </span>
-          <span className="text-sm font-medium text-primary">
-            {Math.round(((currentQuestionIndex + 1) / totalQuestions) * 100)}%
-          </span>
-        </div>
-        <div className="w-full bg-gray-200 rounded-full h-2">
-          <div 
-            className="bg-primary h-2 rounded-full transition-all duration-300"
-            style={{ width: `${((currentQuestionIndex + 1) / totalQuestions) * 100}%` }}
-          ></div>
-        </div>
-      </div>
-
+    <div className="w-full">
       {/* Question */}
-      <div className="mb-8">
-        <h3 className="text-xl font-semibold mb-1">
-          {question.text}
+      <div className="mb-6">
+        <h3 className="text-xl font-semibold mb-2">
+          {question}
         </h3>
-        <p className="text-gray-500 text-sm">Select the option that best describes you</p>
+        <p className="text-gray-500 text-sm">Select how much you agree with this statement</p>
       </div>
 
       {/* Options */}
-      <div className="space-y-4">
-        {question.options.map((option, index) => (
+      <div className="space-y-3">
+        {options.map((option, index) => (
           <button
             key={index}
-            onClick={() => handleOptionSelect(option)}
+            onClick={() => handleOptionSelect(index + 1)}
             className={`w-full text-left p-4 rounded-lg border transition-all duration-200 hover:border-primary focus:outline-none focus:ring-2 focus:ring-primary/30 ${
-              selectedAnswer === option
+              selectedValue === index + 1
                 ? 'border-primary bg-primary/5'
                 : 'border-gray-200 hover:bg-gray-50'
             }`}
@@ -77,12 +57,12 @@ const TestQuestion = ({
             <div className="flex items-center">
               <div 
                 className={`w-5 h-5 rounded-full border flex items-center justify-center ${
-                  selectedAnswer === option 
+                  selectedValue === index + 1 
                     ? 'border-primary bg-primary' 
                     : 'border-gray-300'
                 }`}
               >
-                {selectedAnswer === option && (
+                {selectedValue === index + 1 && (
                   <span className="w-2 h-2 rounded-full bg-white" />
                 )}
               </div>
