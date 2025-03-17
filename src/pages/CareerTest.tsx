@@ -5,7 +5,7 @@ import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import TestQuestion from '../components/TestQuestion';
 import { Button } from '@/components/ui/button';
-import { ArrowLeft, ArrowRight, Briefcase } from 'lucide-react';
+import { ArrowLeft, ArrowRight, Briefcase, CheckCircle } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 
 const careerQuestions = [
@@ -117,6 +117,16 @@ const CareerTest = () => {
     if (currentQuestion < careerQuestions.length - 1) {
       setCurrentQuestion(prev => prev + 1);
     } else {
+      // Show completion toast
+      toast({
+        title: "Career Assessment Complete!",
+        description: "Amazing! Now viewing your personalized results...",
+        action: (
+          <div className="h-8 w-8 bg-green-50 rounded-full flex items-center justify-center">
+            <CheckCircle className="h-5 w-5 text-green-500" />
+          </div>
+        ),
+      });
       calculateResults();
     }
   };

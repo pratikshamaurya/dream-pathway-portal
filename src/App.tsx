@@ -15,6 +15,7 @@ import CareerTest from "./pages/CareerTest";
 import Results from "./pages/Results";
 import SuccessStories from "./pages/SuccessStories";
 import Profile from "./pages/Profile";
+import TestEntry from "./pages/TestEntry";
 import ProtectedRoute from "./components/ProtectedRoute";
 
 const queryClient = new QueryClient();
@@ -32,6 +33,13 @@ const App = () => (
             <Route path="/register" element={<Register />} />
             <Route path="/about" element={<About />} />
             <Route path="/success-stories" element={<SuccessStories />} />
+            
+            {/* Test entry point route */}
+            <Route path="/test" element={
+              <ProtectedRoute>
+                <TestEntry />
+              </ProtectedRoute>
+            } />
             
             {/* Protected routes */}
             <Route path="/test/personality" element={

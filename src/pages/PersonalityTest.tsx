@@ -5,7 +5,7 @@ import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import TestQuestion from '../components/TestQuestion';
 import { Button } from '@/components/ui/button';
-import { ArrowLeft, ArrowRight, Brain } from 'lucide-react';
+import { ArrowLeft, ArrowRight, Brain, CheckCircle } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 
 const personalityQuestions = [
@@ -119,6 +119,16 @@ const PersonalityTest = () => {
     if (currentQuestion < personalityQuestions.length - 1) {
       setCurrentQuestion(prev => prev + 1);
     } else {
+      // Show completion toast
+      toast({
+        title: "Personality Assessment Complete!",
+        description: "Great job! Proceeding to Career Assessment...",
+        action: (
+          <div className="h-8 w-8 bg-green-50 rounded-full flex items-center justify-center">
+            <CheckCircle className="h-5 w-5 text-green-500" />
+          </div>
+        ),
+      });
       calculateResults();
     }
   };
