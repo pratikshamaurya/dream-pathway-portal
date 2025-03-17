@@ -1,5 +1,7 @@
 
 import { useState } from 'react';
+import { useToast } from "@/hooks/use-toast";
+import { CheckCircle } from 'lucide-react';
 
 export interface Question {
   id: number;
@@ -27,9 +29,22 @@ const TestQuestion = ({
     "Agree",
     "Strongly Agree"
   ];
+  
+  const { toast } = useToast();
 
   const handleOptionSelect = (value: number) => {
     onAnswer(questionId, value);
+    
+    // Show toast notification
+    toast({
+      title: "Response recorded",
+      description: `You selected: ${options[value - 1]}`,
+      action: (
+        <div className="h-8 w-8 bg-green-50 rounded-full flex items-center justify-center">
+          <CheckCircle className="h-5 w-5 text-green-500" />
+        </div>
+      ),
+    });
   };
 
   return (
