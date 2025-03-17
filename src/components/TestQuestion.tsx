@@ -22,8 +22,8 @@ const TestQuestion = ({
 }: TestQuestionProps) => {
   const options = [
     "Strongly Disagree",
-    "Disagree",
-    "Neutral",
+    "Disagree", 
+    "Neither Agree nor Disagree",
     "Agree",
     "Strongly Agree"
   ];
@@ -39,7 +39,7 @@ const TestQuestion = ({
         <h3 className="text-xl font-semibold mb-2">
           {question}
         </h3>
-        <p className="text-gray-500 text-sm">Select how much you agree with this statement</p>
+        <p className="text-gray-500 text-sm">Please indicate your level of agreement with this statement</p>
       </div>
 
       {/* Options */}
